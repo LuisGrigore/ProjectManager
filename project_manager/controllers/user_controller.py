@@ -26,6 +26,4 @@ def register(app):
     @app.route('/users/<uid>', methods=['GET'])
     def get_user_by_id(uid: int):
         get_user_dto = user_service.find_user_by_id(uid, get_user)
-        if get_user_dto:
-            return UserGetDto.serialize(get_user_dto)
-        return "No se pudoi completar la accion"
+        return manage_network_result(get_user_dto)

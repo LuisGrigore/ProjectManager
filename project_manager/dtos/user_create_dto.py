@@ -39,10 +39,18 @@ class UserCreatedDto(Dto):
         return jsonify({'name': self._name})
 
 class UserGetDto(Dto):
-    '''hola'''
+    '''hoola'''
     def __init__(self, name: str = None):
-        self.name = name
+        self._name = name
 
-    @staticmethod
-    def serialize(user_get_dto: UserGetDto):
-        return jsonify({'name': user_get_dto.name})
+    @property
+    def name(self):
+        return self._name
+
+    def deserialize(self, data: Dict):
+        '''Overwrites abstract'''
+        self._name = data.get("name")
+
+    def serialize(self):
+        '''Overwrites abstract'''
+        return jsonify({'name': self._name})
