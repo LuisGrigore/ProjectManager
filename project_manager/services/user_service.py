@@ -8,6 +8,7 @@ from project_manager.model import UserModel
 
 
 def create_user(user_dto:UserCreateDto, persist_funct: Callable[[UserModel], Optional[UserModel]]) -> Result[UserCreatedDto, UserNotPersistedError]:
+    '''hola'''
     user_model: UserModel = user_create_dto_to_user_model(user_dto)
     user_created: UserCreatedDto = user_model_to_user_created_dto(user_model)
     if persist_funct:
@@ -16,6 +17,7 @@ def create_user(user_dto:UserCreateDto, persist_funct: Callable[[UserModel], Opt
     return Success(user_created)
 
 def find_user_by_id(uid: int, find_in_db_funct: Callable[[int],Optional[UserModel]]) -> Optional[UserGetDto]:
+    '''hola'''
     user = find_in_db_funct(uid)
     if user:
         return UserGetDto(user.name)

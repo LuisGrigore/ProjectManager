@@ -1,15 +1,17 @@
 from typing import Dict
 
 from flask import request
-from returns.result import Result, Success
+from returns.result import Result
 
+from project_manager.controllers.manage_network_results import manage_network_result
 from project_manager.dtos import UserCreateDto, UserCreatedDto, UserGetDto
-from project_manager.errors.network_base_error import NetworkError, manage_network_result
+from project_manager.errors.network_base_error import NetworkError
 from project_manager.services import user_service
 from project_manager.repos.user_repos import save_user,get_user
 
 
 def register(app):
+    '''Registers user enpoints'''
 
     @app.route('/users', methods=['POST'])
     def register_user():

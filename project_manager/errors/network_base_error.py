@@ -1,6 +1,3 @@
-from returns.result import Result, Success
-
-from project_manager.dtos.dto_base import Dto
 from project_manager.errors.base_error import Error
 
 class NetworkError(Error):
@@ -9,7 +6,3 @@ class NetworkError(Error):
         self.status_code = status_code
 
 
-def manage_network_result(result: Result[Dto,NetworkError]):
-    if isinstance(result, Success):
-        return result.unwrap().serialize(), 200
-    return result.failure().message, result.failure().status_code

@@ -1,0 +1,16 @@
+site_name: My Docs
+
+plugins:
+  - mkdocstrings
+
+nav:
+  - Home: index.md
+  - Project Manager: project_manager.md
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: deep purple
+    accent: pink
+
