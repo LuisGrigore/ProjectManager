@@ -8,7 +8,7 @@ class Token:
         self._creation_time = creation_time
 
     def __hash__(self):
-        return hash((self._username, self._creation_time.strftime("%Y-%m-%d %H:%M:%S")))
+        return hash((self._username, self._creation_time.strftime("%Y-%m-%d %H:%M:%S.%f")))
 
     def belongs_to(self, username: str) -> bool:
         if self._username == username:
