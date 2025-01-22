@@ -13,11 +13,12 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-    from project_manager.controllers.user_controller import register
+    from project_manager.controllers import user_controller, project_controller, auth_controller
+    from auth.auth_session import AuthSession
 
-    register(app)
-
-    #migrate = Migrate(app,db)
-
+    user_controller.register(app)
+    project_controller.register(app)
+    auth_session: AuthSession = AuthSession({})
+    auth_controller.register(app, auth_session)
     return app
 

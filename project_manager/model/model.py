@@ -23,6 +23,13 @@ class ProjectModel(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True, nullable=False)
     creation_date = db.Column(db.Date, nullable = False)
 
+    @staticmethod
+    def get_ProjectModel(name = None, owner_id = None) -> ProjectModel:
+        project_model = ProjectModel()
+        project_model.name = name
+        project_model.owner_id = owner_id
+        return project_model
+
 class UserModel(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)

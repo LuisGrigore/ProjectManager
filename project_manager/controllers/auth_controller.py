@@ -1,4 +1,7 @@
-def register(app):
-    @app.route()
+from auth.auth_session import AuthSession
+
+
+def register(app, auth_session: AuthSession):
+    @app.route('/login')
     def login():
         pass
