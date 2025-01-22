@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -11,13 +10,14 @@ def create_app():
 
     db.init_app(app)
 
-
+    with app.app_context():
+        db.create_all()
 
     from project_manager.controllers.user_controller import register
 
     register(app)
 
-    migrate = Migrate(app,db)
+    #migrate = Migrate(app,db)
 
     return app
 

@@ -8,7 +8,8 @@ def save_user(user: UserModel) -> Optional[UserModel]:
         db.session.add(user)
         db.session.commit()
         return user
-    except:
+    except Exception as e:
+        print(e)
         return None
 
 def get_user(uid: int) -> Optional[UserModel]:
