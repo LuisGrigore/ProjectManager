@@ -36,3 +36,9 @@ def delete_user_by_id(uid: int) -> Optional[UserModel]:
             return None
     return None
 
+def get_user_by_name_password(name: str, password: str) -> Optional[UserModel]:
+    user = UserModel.query.filter(UserModel.name == name, UserModel.password == password).first()
+    if user:
+        return user
+    return None
+

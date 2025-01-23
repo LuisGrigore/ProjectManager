@@ -23,3 +23,4 @@ def find_user_by_id(uid: int, find_in_db_funct: Callable[[int],Optional[UserMode
     if user:
         return Success(UserGetDto(user.name))
     return Failure(UserNotFoundError())
+

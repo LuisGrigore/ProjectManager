@@ -9,6 +9,6 @@ class Dto(ABC):
         pass
 
     @abstractmethod
-    def serialize(self,a):
+    def serialize(self):
         '''Abstract method'''
         pass

@@ -61,3 +61,25 @@ class UserGetDto(Dto):
     def serialize(self):
         '''Overwrites abstract'''
         return jsonify({'name': self._name})
+
+class UserLoginDto(Dto):
+    '''hoola'''
+    def __init__(self, name: str = None, password:str = None):
+        self._name = name
+        self._password = password
+
+    @property
+    def name(self):
+        return self._name
+    @property
+    def password(self):
+        return self._password
+
+    def deserialize(self, data: Dict):
+        '''Overwrites abstract'''
+        self._name = data.get("name")
+        self._password = data.get("password")
+
+    def serialize(self):
+        '''Overwrites abstract'''
+        return jsonify({'name': self._name, 'password': self._password})
