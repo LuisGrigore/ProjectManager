@@ -22,4 +22,5 @@ def register(app, auth_session: AuthSession):
 
         if validate_login(user_login_dto, get_user_by_name_password):
             return token_mapper.token_to_token_get_dto(auth_session.add_token(Token(user_login_dto.name,TTL,datetime.now()))).serialize()
-    return UserNotFoundError().message,  UserNotFoundError().status_code
+
+        return UserNotFoundError().message, UserNotFoundError().status_code
