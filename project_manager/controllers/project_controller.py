@@ -1,6 +1,6 @@
 from typing import Dict
 from flask import request
-from returns.result import Result
+from returns.result import Result, Success
 
 from project_manager.controllers.manage_network_results import manage_network_result
 from project_manager.dtos.project_dtos import ProjectCreateDto, ProjectCreatedDto
@@ -15,7 +15,6 @@ def register(app):
         project_create_data: Dict = request.get_json()
         project_create: ProjectCreateDto = ProjectCreateDto()
         project_create.deserialize(project_create_data)
-
         project_created: Result[ProjectCreatedDto, NetworkError] = project_service.create_project(project_create,save_project)
 
         return manage_network_result(project_created)

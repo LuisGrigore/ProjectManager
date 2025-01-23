@@ -18,10 +18,10 @@ class ProjectModel(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer,  primary_key = True)
     name = db.Column(db.Text, nullable = False)
+    #creation_date = db.Column(db.Date, nullable = False)
 
     owner = db.relationship('UserModel', back_populates='projects')
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True, nullable=False)
-    creation_date = db.Column(db.Date, nullable = False)
 
     @staticmethod
     def get_ProjectModel(name = None, owner_id = None) -> ProjectModel:

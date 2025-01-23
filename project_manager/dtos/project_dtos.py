@@ -1,3 +1,5 @@
+from flask import jsonify
+
 from project_manager.dtos.dto_base import Dto
 
 
@@ -6,11 +8,12 @@ class ProjectCreateDto(Dto):
         self._name = name
         self._owner_id = owner_id
 
-    def deserialize(self, a):
-        pass
+    def deserialize(self, data):
+        self._name = data.get('name')
+        self._owner_id = data.get('owner_id')
 
-    def serialize(self, a):
-        pass
+    def serialize(self):
+        return jsonify({'name': self._name, 'owner_id': self._owner_id})
 
     @property
     def name(self):
@@ -25,11 +28,12 @@ class ProjectGetDto(Dto):
         self._name = name
         self._owner_id = owner_id
 
-    def serialize(self, a):
-        pass
+    def deserialize(self, data):
+        self._name = data.get('name')
+        self._owner_id = data.get('owner_id')
 
-    def deserialize(self, a):
-        pass
+    def serialize(self):
+        return jsonify({'name': self._name, 'owner_id': self._owner_id})
 
     @property
     def name(self):
@@ -44,11 +48,12 @@ class ProjectCreatedDto(Dto):
         self._name = name
         self._owner_id = owner_id
 
-    def serialize(self, a):
-        pass
+    def deserialize(self, data):
+        self._name = data.get('name')
+        self._owner_id = data.get('owner_id')
 
-    def deserialize(self, a):
-        pass
+    def serialize(self):
+        return jsonify({'name': self._name, 'owner_id': self._owner_id})
 
     @property
     def name(self):
