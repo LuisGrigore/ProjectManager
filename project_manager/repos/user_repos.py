@@ -3,6 +3,7 @@ from typing import Optional
 from project_manager.app import db
 from project_manager.model import UserModel
 
+
 def save_user(user: UserModel) -> Optional[UserModel]:
     try:
         db.session.add(user)
@@ -11,11 +12,13 @@ def save_user(user: UserModel) -> Optional[UserModel]:
     except:
         return None
 
+
 def get_user(uid: int) -> Optional[UserModel]:
     user = UserModel.query.get(uid)
     if user:
         return user
     return None
+
 
 def update_user(uid: int, updated_user: UserModel) -> Optional[UserModel]:
     user = db.session.get(uid)
@@ -24,6 +27,7 @@ def update_user(uid: int, updated_user: UserModel) -> Optional[UserModel]:
         db.session.commit()
         return user
     return None
+
 
 def delete_user_by_id(uid: int) -> Optional[UserModel]:
     user = db.session.get(uid)
@@ -35,6 +39,7 @@ def delete_user_by_id(uid: int) -> Optional[UserModel]:
         except:
             return None
     return None
+
 
 def get_user_by_name_password(name: str, password: str) -> Optional[UserModel]:
     user = UserModel.query.filter(UserModel.name == name, UserModel.password == password).first()
