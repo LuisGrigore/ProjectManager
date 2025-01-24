@@ -20,7 +20,6 @@ class ProjectModel(db.Model):
     name = db.Column(db.Text, nullable = False)
     #creation_date = db.Column(db.Date, nullable = False)
 
-    #owner = db.relationship('UserModel', back_populates='projects')
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     @staticmethod
@@ -43,4 +42,3 @@ class UserModel(db.Model):
         user_model.name = name
         user_model.password = password
         return user_model
-        #self.projects = []

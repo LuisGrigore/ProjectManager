@@ -1,3 +1,5 @@
+from typing import List
+
 from returns.result import Success, Result
 
 from project_manager.dtos.dto_base import Dto
