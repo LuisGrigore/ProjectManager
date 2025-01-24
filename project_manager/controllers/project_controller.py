@@ -2,7 +2,7 @@ from typing import Dict, List
 from flask import request
 from returns.result import Result, Success
 
-from project_manager.controllers.manage_network_results import manage_network_result
+from project_manager.controllers.manage_network_results import manage_network_result, manage_network_result_with_list
 from project_manager.dtos.project_dtos import ProjectCreateDto, ProjectGetDto
 from project_manager.errors.network_base_error import NetworkError
 from project_manager.repos import project_repos, user_repos
@@ -19,10 +19,10 @@ def register(app):
 
         return manage_network_result(project_created)
 
-    @app.route('/<uid>/projects')
+    @app.route('users/<uid>/projects')
     def get_projects_by_owner_id(uid: int):
         projects: Result[List[ProjectGetDto], NetworkError] = project_service.get_projects_by_owner_id(uid, project_repos.find_projects_by_user_id)
-        return  manage_network_result(projects)
+        return manage_network_result_with_list(projects)
 
     @app.route('/projects/<id>')
     def get_project_by_id():

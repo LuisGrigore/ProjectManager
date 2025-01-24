@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from flask import Response
+
 
 class Dto(ABC):
     '''dto base class'''
@@ -9,6 +11,6 @@ class Dto(ABC):
         pass
 
     @abstractmethod
-    def serialize(self):
+    def serialize(self) -> Response:
         '''Abstract method'''
         pass

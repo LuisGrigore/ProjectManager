@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, Response
 
 from project_manager.dtos.dto_base import Dto
 
@@ -12,7 +12,7 @@ class ProjectCreateDto(Dto):
         self._name = data.get('name')
         self._owner_id = data.get('owner_id')
 
-    def serialize(self):
+    def serialize(self) -> Response:
         return jsonify({'name': self._name, 'owner_id': self._owner_id})
 
     @property
