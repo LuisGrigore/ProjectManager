@@ -3,7 +3,7 @@ from typing import Any
 
 from returns.result import Success, Failure
 
-from project_manager.dtos import UserCreatedDto, UserGetDto
+from project_manager.dtos import UserGetDto, UserGetDto
 from project_manager.errors.my_errors import UserNotPersistedError, UserNotFoundError
 from project_manager.model import UserModel
 from project_manager.services import user_service
@@ -14,15 +14,15 @@ class UserServiceCreateUserTests(unittest.TestCase):
     def test_create_user_success(self):
         def _persist_function_success_mock(user_model):
             return user_model
-        create_user_dto = UserCreatedDto()
+        create_user_dto = UserGetDto()
         user_created_dto = user_service.create_user(create_user_dto, _persist_function_success_mock)
         self.assertIsInstance(user_created_dto, Success)
-        self.assertIsInstance(user_created_dto.unwrap(),UserCreatedDto)
+        self.assertIsInstance(user_created_dto.unwrap(), UserGetDto)
 
     def test_create_user_fail(self):
         def _persist_function_fail_mock(user_model):
             return None
-        create_user_dto = UserCreatedDto()
+        create_user_dto = UserGetDto()
         user_created_dto = user_service.create_user(create_user_dto, _persist_function_fail_mock)
         self.assertIsInstance(user_created_dto, Failure)
         self.assertIsInstance(user_created_dto.failure(),UserNotPersistedError)

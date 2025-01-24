@@ -1,3 +1,3 @@
-__all__ = ["UserCreateDto", "UserCreatedDto", "UserGetDto"]
+__all__ = ["UserCreateDto", "UserGetDto", "UserGetDto"]
 
-from project_manager.dtos.user_dtos import UserCreateDto, UserCreatedDto, UserGetDto
+from project_manager.dtos.user_dtos import UserCreateDto, UserGetDto, UserGetDto
