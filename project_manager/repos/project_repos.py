@@ -20,3 +20,10 @@ def find_projects_by_user_id(uid: int) -> Optional[List[ProjectModel]]:
         return projects
     except Exception as e:
         return None
+
+
+def get_project(id: str) -> Optional[ProjectModel]:
+    project = ProjectModel.query.get(id)
+    if project:
+        return project
+    return None

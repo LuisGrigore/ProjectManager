@@ -2,6 +2,7 @@ from typing import Callable, Optional, List
 
 from project_manager.dtos.project_dtos import ProjectCreateDto, ProjectGetDto, ProjectGetDto
 from project_manager.errors.my_errors import ProjectNotPersistedError, UserNotFoundError, ProjectNotFoundError
+from project_manager.mappers import project_mapper
 from project_manager.mappers.project_mapper import project_create_dto_to_project_model, \
     project_model_to_project_get_dto
 from project_manager.model.model import ProjectModel
@@ -28,3 +29,10 @@ def get_projects_by_owner_id(uid: int, get_projects_by_user_id_funct: Callable[[
         return Success(project_gets)
     return Failure(ProjectNotFoundError())
 
+
+def find_project_by_id(id, get_project_funct):
+    '''hola'''
+    project = get_project_funct(id)
+    if project:
+        return Success(project_mapper.project_model_to_project_get_dto(project))
+    return Failure(ProjectNotFoundError())
