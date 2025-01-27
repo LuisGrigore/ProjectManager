@@ -1,15 +1,14 @@
-from typing import Callable, Optional, List
+from typing import Callable, List
 
-from project_manager.dtos.project_dtos import ProjectCreateDto, ProjectGetDto, ProjectGetDto
+from project_manager.dtos.project_dtos import ProjectCreateDto, ProjectGetDto
 from project_manager.errors.my_errors import ProjectNotPersistedError, UserNotFoundError, ProjectNotFoundError
 from project_manager.mappers import project_mapper
-from project_manager.mappers.project_mapper import project_create_dto_to_project_model, \
-    project_model_to_project_get_dto
+from project_manager.mappers.project_mapper import project_model_to_project_get_dto
 from project_manager.model.model import ProjectModel
 from returns.result import Result, Success, Failure
 
 from project_manager.repos import project_repos
-from project_manager.services.base_functs import save_entity
+from project_manager.services.base_functs import save_entity, find_by_id
 
 
 def create_project(project_dto:ProjectCreateDto, user_exists_funct: Callable[[int],bool]) -> Result[ProjectGetDto, ProjectNotPersistedError]:
@@ -29,7 +28,4 @@ def get_projects_by_owner_id(uid: int, get_projects_by_user_id_funct: Callable[[
 
 def find_project_by_id(id, get_project_funct):
     '''hola'''
-    project = get_project_funct(id)
-    if project:
-        return Success(project_mapper.project_model_to_project_get_dto(project))
-    return Failure(ProjectNotFoundError())
+    return find_by_id(id,get_project_funct,ProjectNotFoundError(),project_mapper.project_model_to_project_get_dto)
