@@ -1,16 +1,11 @@
 from typing import Optional, List
 
-from project_manager.app import db
 from project_manager.model.model import ProjectModel
+from project_manager.repos.base_functs import save_entity, get_entity_by_id
 
 
 def save_project(project: ProjectModel) -> Optional[ProjectModel]:
-    try:
-        db.session.add(project)
-        db.session.commit()
-        return project
-    except Exception as e:
-        return None
+    return save_entity(project)
 
 def find_projects_by_user_id(uid: int) -> Optional[List[ProjectModel]]:
     try:
@@ -23,7 +18,4 @@ def find_projects_by_user_id(uid: int) -> Optional[List[ProjectModel]]:
 
 
 def get_project(id: str) -> Optional[ProjectModel]:
-    project = ProjectModel.query.get(id)
-    if project:
-        return project
-    return None
+    return get_entity_by_id(id, ProjectModel)

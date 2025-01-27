@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from project_manager.app import db
 
-
+Model = db.Model
 
 '''
 class FragmentModel(db.Model):
@@ -14,7 +14,8 @@ class FragmentModel(db.Model):
     name= db.Column(db.Text, nullable=False)
 
 '''
-class ProjectModel(db.Model):
+
+class ProjectModel(Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer,  primary_key = True)
     name = db.Column(db.Text, nullable = False)
@@ -29,7 +30,7 @@ class ProjectModel(db.Model):
         project_model.owner_id = owner_id
         return project_model
 
-class UserModel(db.Model):
+class UserModel(Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable = False)

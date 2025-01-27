@@ -14,3 +14,17 @@ class Dto(ABC):
     def serialize(self) -> Response:
         '''Abstract method'''
         pass
+
+class CreateDto(Dto):
+    def deserialize(self, a):
+        pass
+
+    def serialize(self) -> Response:
+        pass
+
+class GetDto(Dto):
+    def deserialize(self, a):
+        pass
+
+    def serialize(self) -> Response:
+        pass

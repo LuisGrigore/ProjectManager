@@ -1,44 +1,22 @@
 from typing import Optional
 
-from project_manager.app import db
 from project_manager.model import UserModel
+from project_manager.repos.base_functs import save_entity, get_entity_by_id, update_entity, delete_entity_by_id
 
 
 def save_user(user: UserModel) -> Optional[UserModel]:
-    try:
-        db.session.add(user)
-        db.session.commit()
-        return user
-    except:
-        return None
-
+    return save_entity(user)
 
 def get_user(uid: int) -> Optional[UserModel]:
-    user = UserModel.query.get(uid)
-    if user:
-        return user
-    return None
+    return get_entity_by_id(uid,UserModel)
 
 
 def update_user(uid: int, updated_user: UserModel) -> Optional[UserModel]:
-    user = db.session.get(uid)
-    if user:
-        UserModel.update(user, updated_user)
-        db.session.commit()
-        return user
-    return None
+    return update_entity(uid,updated_user,UserModel)
 
 
 def delete_user_by_id(uid: int) -> Optional[UserModel]:
-    user = db.session.get(uid)
-    if user:
-        try:
-            db.session.delete(user)
-            db.session.commit()
-            return user
-        except:
-            return None
-    return None
+    return delete_entity_by_id(uid)
 
 
 def get_user_by_name_password(name: str, password: str) -> Optional[UserModel]:

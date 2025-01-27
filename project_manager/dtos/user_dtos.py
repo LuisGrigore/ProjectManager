@@ -4,9 +4,10 @@ from typing import Dict
 
 import flask
 from flask import jsonify
-from project_manager.dtos.dto_base import Dto
+from project_manager.dtos.dto_base import Dto, CreateDto, GetDto
 
-class UserCreateDto(Dto):
+
+class UserCreateDto(CreateDto):
     '''hola'''
     def __init__(self, name: str = None, password: str = None):
         self._name = name
@@ -30,7 +31,7 @@ class UserCreateDto(Dto):
         return jsonify({'name': self._name, 'password': self._password})
 
 
-class UserGetDto(Dto):
+class UserGetDto(GetDto):
     '''hoola'''
     def __init__(self, name: str = None, uid: int = None):
         self._name = name

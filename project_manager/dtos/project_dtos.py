@@ -1,9 +1,9 @@
 from flask import jsonify, Response
 
-from project_manager.dtos.dto_base import Dto
+from project_manager.dtos.dto_base import CreateDto, GetDto
 
 
-class ProjectCreateDto(Dto):
+class ProjectCreateDto(CreateDto):
     def __init__(self, name: str = None, owner_id: int = None):
         self._name = name
         self._owner_id = owner_id
@@ -23,7 +23,7 @@ class ProjectCreateDto(Dto):
         return self._owner_id
 
 
-class ProjectGetDto(Dto):
+class ProjectGetDto(GetDto):
     def __init__(self, name: str, owner_id: int):
         self._name = name
         self._owner_id = owner_id
