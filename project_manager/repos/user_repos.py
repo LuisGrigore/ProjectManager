@@ -16,7 +16,7 @@ def update_user(uid: int, updated_user: UserModel) -> Optional[UserModel]:
 
 
 def delete_user_by_id(uid: int) -> Optional[UserModel]:
-    return delete_entity_by_id(uid)
+    return delete_entity_by_id(uid, UserModel)
 
 
 def get_user_by_name_password(name: str, password: str) -> Optional[UserModel]:
