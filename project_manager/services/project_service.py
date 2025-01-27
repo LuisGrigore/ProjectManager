@@ -8,17 +8,14 @@ from project_manager.mappers.project_mapper import project_create_dto_to_project
 from project_manager.model.model import ProjectModel
 from returns.result import Result, Success, Failure
 
+from project_manager.repos import project_repos
+from project_manager.services.base_functs import save_entity
 
-def create_project(project_dto:ProjectCreateDto, persist_funct: Callable[[ProjectModel], Optional[ProjectModel]],
-                   user_exists_funct: Callable[[int],bool]) -> Result[ProjectGetDto, ProjectNotPersistedError]:
+
+def create_project(project_dto:ProjectCreateDto, user_exists_funct: Callable[[int],bool]) -> Result[ProjectGetDto, ProjectNotPersistedError]:
     '''hola'''
     if user_exists_funct(project_dto.owner_id):
-        project_model: ProjectModel = project_create_dto_to_project_model(project_dto)
-        project_model_persisted = persist_funct(project_model)
-        if project_model_persisted:
-            project_created_dto: ProjectGetDto = project_model_to_project_get_dto(project_model)
-            return Success(project_created_dto)
-        return Failure(ProjectNotPersistedError())
+        return save_entity(project_dto,ProjectNotPersistedError(),project_repos.save_project,project_mapper.project_create_dto_to_project_model,project_mapper.project_model_to_project_get_dto)
     return Failure(UserNotFoundError())
 
 

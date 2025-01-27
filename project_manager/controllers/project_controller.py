@@ -15,7 +15,7 @@ def register(app):
         project_create_data: Dict = request.get_json()
         project_create: ProjectCreateDto = ProjectCreateDto()
         project_create.deserialize(project_create_data)
-        project_created: Result[ProjectGetDto, NetworkError] = project_service.create_project(project_create, project_repos.save_project, user_repos.get_user)
+        project_created: Result[ProjectGetDto, NetworkError] = project_service.create_project(project_create, user_repos.get_user)
 
         return manage_network_result(project_created)
 
