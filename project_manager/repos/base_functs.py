@@ -32,6 +32,7 @@ def delete_entity_by_id(entity_id: int, model: Type[Model]) -> Optional[Model]:
     return None
 
 
+
 def _commit_changes(session: Session) -> bool:
     try:
         session.commit()
