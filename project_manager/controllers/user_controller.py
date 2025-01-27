@@ -7,7 +7,7 @@ from project_manager.controllers.manage_network_results import manage_network_re
 from project_manager.dtos import UserCreateDto, UserGetDto, UserGetDto
 from project_manager.errors.network_base_error import NetworkError
 from project_manager.services import user_service
-from project_manager.repos.user_repos import save_user,get_user
+from project_manager.repos.user_repos import get_user
 
 
 def register(app):
@@ -19,7 +19,7 @@ def register(app):
         user_create: UserCreateDto = UserCreateDto()
         user_create.deserialize(user_create_data)
 
-        user_created: Result[UserGetDto, NetworkError] = user_service.create_user(user_create, save_user)
+        user_created: Result[UserGetDto, NetworkError] = user_service.create_user(user_create)
 
         return manage_network_result(user_created)
 
