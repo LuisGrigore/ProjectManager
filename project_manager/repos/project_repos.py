@@ -1,7 +1,7 @@
 from typing import Optional, List
 
 from project_manager.model.model import ProjectModel
-from project_manager.repos.base_functs import save_entity, get_entity_by_id
+from project_manager.repos.repos import save_entity, get_entity_by_id
 
 
 def save_project(project: ProjectModel) -> Optional[ProjectModel]:

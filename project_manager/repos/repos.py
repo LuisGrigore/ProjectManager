@@ -1,4 +1,4 @@
-from typing import Optional, Any, Type, Callable
+from typing import Optional, Any, Type, Callable, Dict
 
 from flask_sqlalchemy.model import Model
 from sqlalchemy.exc import SQLAlchemyError
@@ -30,6 +30,13 @@ def delete_entity_by_id(entity_id: int, model: Type[Model]) -> Optional[Model]:
     if entity and _delete_from_session(db.session, entity) and _commit_changes(db.session):
         return entity
     return None
+
+def get_entity_by_attributes(model:Type[Model], filters: Dict[str,Any]):
+    query = model.query
+    if filters:
+        for field, value in filters.items():
+            query = query.filter(getattr(model, field) == value)
+    return query.all()
 
 
 def _commit_changes(session: Session) -> bool:
