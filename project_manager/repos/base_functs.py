@@ -1,4 +1,4 @@
-from typing import Optional, Any, Type, List
+from typing import Optional, Any, Type, Callable
 
 from flask_sqlalchemy.model import Model
 from sqlalchemy.exc import SQLAlchemyError
@@ -15,15 +15,15 @@ def save_entity(entity: Model) -> Optional[Model]:
 def get_entity_by_id(entity_id: Any, model: Type[Model]) -> Optional[Model]:
     return _get_entity(db.session, model, entity_id)
 
+
 def update_entity(entity_id: Any, updated_entity: Model, model: Type[Model]) -> Optional[Model]:
     entity = _get_entity(db.session, model, entity_id)
-    if entity:
-        for attr, value in vars(updated_entity).items():
-            if not attr.startswith("_"):
-                setattr(entity, attr, value)
-        if _commit_changes(db.session):
-            return entity
-    return None
+    return (
+        entity if entity and all(
+            setattr(entity, attr, value) for attr, value in vars(updated_entity).items() if not attr.startswith("_")
+        ) and _commit_changes(db.session)
+        else None
+    )
 
 def delete_entity_by_id(entity_id: int, model: Type[Model]) -> Optional[Model]:
     entity = _get_entity(db.session, model, entity_id)
@@ -32,28 +32,25 @@ def delete_entity_by_id(entity_id: int, model: Type[Model]) -> Optional[Model]:
     return None
 
 
-
 def _commit_changes(session: Session) -> bool:
-    try:
-        session.commit()
-        return True
-    except SQLAlchemyError:
-        session.rollback()
-        return False
+    return _try_true_except_false(session.commit)
+
 
 def _add_to_session(session: Session, entity: Model) -> bool:
-    try:
-        session.add(entity)
-        return True
-    except SQLAlchemyError:
-        return False
+    return _try_true_except_false(lambda : session.add(entity))
+
 
 def _delete_from_session(session: Session, entity: Model) -> bool:
-    try:
-        session.delete(entity)
-        return True
-    except SQLAlchemyError:
-        return False
+    return _try_true_except_false(lambda: session.delete(entity))
+
 
 def _get_entity(session: Session, model: Type[Model], entity_id: Any) -> Optional[Model]:
     return session.get(model, entity_id)
+
+def _try_true_except_false(*ops: Callable) -> bool:
+    try:
+        for op in ops:
+            op()
+        return True
+    except SQLAlchemyError:
+        return False
