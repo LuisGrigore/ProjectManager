@@ -59,5 +59,6 @@ def _try_true_except_false(*ops: Callable) -> bool:
         for op in ops:
             op()
         return True
-    except SQLAlchemyError:
+    except SQLAlchemyError as e:
+        print(e)
         return False

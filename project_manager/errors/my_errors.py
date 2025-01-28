@@ -17,3 +17,11 @@ class ProjectNotFoundError(NotFoundError):
 class ProjectNotPersistedError(NotPersistedError):
     def __init__(self):
         super().__init__('Project could not be saved.')
+
+class FragmentNotFoundError(NotFoundError):
+    def __init__(self):
+        super().__init__('Fragment not found.')
+
+class FragmentNotPersistedError(NotPersistedError):
+    def __init__(self):
+        super().__init__('Fragment could not be saved.')

@@ -4,22 +4,30 @@ from project_manager.app import db
 
 Model = db.Model
 
-'''
+
 class FragmentModel(db.Model):
     __tablename__ = 'fragments'
     id = db.Column(db.Integer, primary_key = True)
-    owner = db.relationship('User', back_populates='projects')
-    fragments = db.relationship('Fragment', back_populates='projects')
-    assigned_to = db.relationship('User', back_populates ='fregments', uselist = False)
-    name= db.Column(db.Text, nullable=False)
+    name = db.Column(db.Text, nullable = False)
 
-'''
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable = False)
+
+    @staticmethod
+    def get_FragmentModel(name = None, project_id = None) -> ProjectModel:
+        fragment_model = ProjectModel()
+        fragment_model.name = name
+        fragment_model.project_id = project_id
+        return fragment_model
+
+
 
 class ProjectModel(Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer,  primary_key = True)
     name = db.Column(db.Text, nullable = False)
     #creation_date = db.Column(db.Date, nullable = False)
+    fragments = db.relationship('FragmentModel', backref='project', lazy=True)
+
 
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 

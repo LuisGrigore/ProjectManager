@@ -7,7 +7,6 @@ from project_manager.controllers.manage_network_results import manage_network_re
 from project_manager.dtos import UserCreateDto, UserGetDto, UserGetDto
 from project_manager.errors.network_base_error import NetworkError
 from project_manager.services import user_service
-from project_manager.repos.user_repos import get_user
 
 
 def register(app):
@@ -25,5 +24,5 @@ def register(app):
 
     @app.route('/users/<uid>', methods=['GET'])
     def get_user_by_id(uid: int):
-        get_user_dto = user_service.find_user_by_id(uid, get_user)
+        get_user_dto = user_service.find_user_by_id(uid)
         return manage_network_result(get_user_dto)

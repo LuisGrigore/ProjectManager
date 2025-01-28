@@ -8,7 +8,7 @@ from project_manager.model.model import ProjectModel
 from returns.result import Result, Success, Failure
 
 from project_manager.repos import project_repos
-from project_manager.services.base_functs import save_entity, find_by_id
+from project_manager.services.service import save_entity, find_by_id
 
 
 def create_project(project_dto:ProjectCreateDto, user_exists_funct: Callable[[int],bool]) -> Result[ProjectGetDto, ProjectNotPersistedError]:
